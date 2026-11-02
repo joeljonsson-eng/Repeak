@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-zinc-950: #09090b;
+  --color-zinc-900: #121214;
+  --color-zinc-800: #1a1a1e;
+  --color-zinc-700: #26262b;
+  --color-zinc-600: #3c3c43;
+}
+
+body {
+  background-color: #050505;
+  color: #ededed;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.05) translateY(-10px);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 12s infinite ease-in-out;
+}
+
+@keyframes subtle-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #fafafa 0%, #a1a1aa 50%, #fafafa 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: subtle-shimmer 8s linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #26262b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3c3c43;
+}
+
+/* ==========================================
+   PREMIUM LIGHT MODE THEME OVERRIDES
+   ========================================== */
+
+.light-mode {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.light-mode body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Core background overrides */
+.light-mode .bg-\[\#050505\] {
+  background-color: #f8fafc !important;
+}
+.light-mode .bg-\[\#0a0f0d\] {
+  background-color: #ffffff !important;
+}
+.light-mode .bg-\[\#0a0f0d\]\/90 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+.light-mode .bg-\[\#090e0c\] {
+  background-color: #ffffff !important;
+}
+.light-mode .bg-\[\#090e0c\]\/98 {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+}
+.light-mode .bg-neutral-900 {
+  background-color: #f1f5f9 !important;
+}
+.light-mode .bg-neutral-950 {
+  background-color: #ffffff !important;
+}
+.light-mode .bg-\[\#0a0a0c\],
+.light-mode .bg-\[\#0a0a0c\]\/80,
+.light-mode .bg-\[\#0a0a0c\]\/50 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+.light-mode .bg-\[\#0f110f\]\/90 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+.light-mode .bg-\[\#0c0d0c\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+.light-mode .bg-\[\#153a2a\]\/30,
+.light-mode .bg-\[\#153a2a\]\/40,
+.light-mode .bg-\[\#152e22\] {
+  background-color: #f0fdf4 !important;
+  color: #15803d !important;
+}
+.light-mode .text-\[\#3cbd82\] {
+  color: #15803d !important;
+}
+.light-mode .hover\:text-\[\#3cbd82\]:hover {
+  color: #15803d !important;
+}
+.light-mode .border-\[\#3cbd82\] {
+  border-color: #15803d !important;
+}
+.light-mode .border-\[\#3cbd82\]\/20 {
+  border-color: rgba(21, 128, 61, 0.2) !important;
+}
+.light-mode .border-\[\#3cbd82\]\/30 {
+  border-color: rgba(21, 128, 61, 0.3) !important;
+}
+.light-mode .border-\[\#3cbd82\]\/45 {
+  border-color: rgba(21, 128, 61, 0.45) !important;
+}
+
+/* Cards & transparent panel overrides to clean, distinct white components */
+.light-mode .bg-white\/\[0\.05\],
+.light-mode .bg-white\/\[0\.04\],
+.light-mode .bg-white\/\[0\.03\],
+.light-mode .bg-white\/\[0\.02\],
+.light-mode .bg-white\/\[0\.01\],
+.light-mode .bg-white\/5,
+.light-mode .bg-white\/10 {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+.light-mode .hover\:bg-white\/10:hover {
+  background-color: #f1f5f9 !important;
+}
+.light-mode .hover\:bg-white\/5:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Gradients */
+.light-mode .bg-gradient-to-b.from-white\/2 {
+  background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.02), transparent) !important;
+}
+.light-mode .bg-gradient-to-b.from-\[\#0a0f0d\].via-\[\#050505\].to-\[\#050505\],
+.light-mode .bg-gradient-to-b.from-\[\#0a0f0d\].via-\[\#050505\] {
+  background-image: linear-gradient(to bottom, #ffffff, #f8fafc) !important;
+}
+.light-mode .bg-gradient-to-tr.from-neutral-900.to-neutral-950 {
+  background-image: linear-gradient(to top right, #f1f5f9, #ffffff) !important;
+}
+
+/* Borders & divides to soft modern grays */
+.light-mode .border-white\/5 {
+  border-color: #e2e8f0 !important;
+}
+.light-mode .border-white\/10 {
+  border-color: #cbd5e1 !important;
+}
+.light-mode .border-white\/15 {
+  border-color: #cbd5e1 !important;
+}
+.light-mode .border-white\/20 {
+  border-color: #e2e8f0 !important;
+}
+.light-mode .divide-white\/5 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+.light-mode .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #cbd5e1 !important;
+}
+
+/* Text colors */
+.light-mode .text-\[\#ededed\] {
+  color: #1e293b !important; /* slate-800 */
+}
+.light-mode h1.text-white,
+.light-mode h2.text-white,
+.light-mode h3.text-white,
+.light-mode h4.text-white,
+.light-mode span.text-white,
+.light-mode p.text-white,
+.light-mode a.text-white,
+.light-mode div.text-white,
+.light-mode button.text-white,
+.light-mode label.text-white,
+.light-mode svg.text-white,
+.light-mode table.text-white,
+.light-mode th.text-white,
+.light-mode td.text-white,
+.light-mode strong.text-white,
+.light-mode ul.text-white,
+.light-mode li.text-white,
+.light-mode code.text-white,
+.light-mode .text-white {
+  color: #0f172a !important; /* slate-900 */
+}
+
+/* Hover-specific text-color overrides to prevent text from turning invisible on lighter backgrounds */
+.light-mode .hover\:text-white:hover,
+.light-mode .hover\:text-white\/95:hover,
+.light-mode .hover\:text-white\/90:hover,
+.light-mode .hover\:text-white\/80:hover,
+.light-mode .hover\:text-white\/70:hover,
+.light-mode .hover\:text-white\/60:hover {
+  color: #0f172a !important;
+}
+
+/* Opacity text matches */
+.light-mode .text-white\/95 { color: rgba(15, 23, 42, 0.95) !important; }
+.light-mode .text-white\/90 { color: rgba(15, 23, 42, 0.90) !important; }
+.light-mode .text-white\/80 { color: rgba(15, 23, 42, 0.80) !important; }
+.light-mode .text-white\/70 { color: rgba(15, 23, 42, 0.70) !important; }
+.light-mode .text-white\/60 { color: rgba(15, 23, 42, 0.60) !important; }
+.light-mode .text-white\/50 { color: rgba(15, 23, 42, 0.50) !important; }
+.light-mode .text-white\/40 { color: rgba(15, 23, 42, 0.40) !important; }
+.light-mode .text-white\/30 { color: rgba(15, 23, 42, 0.30) !important; }
+.light-mode .text-white\/20 { color: rgba(15, 23, 42, 0.20) !important; }
+.light-mode .text-white\/10 { color: rgba(15, 23, 42, 0.10) !important; }
+
+/* In-App Interactive input elements */
+.light-mode input,
+.light-mode select,
+.light-mode textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+.light-mode input::placeholder,
+.light-mode textarea::placeholder,
+.light-mode select::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Refined aesthetics & branding */
+.light-mode .shimmer-text {
+  background: linear-gradient(90deg, #0f172a 0%, #475569 50%, #0f172a 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Scrollbar on light mode */
+.light-mode::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.light-mode::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+.light-mode::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ==========================================
+   ADVANCED LIGHT MODE CONTRAST & CARD SYSTEM
+   ========================================== */
+
+/* Overrides for common charcoal card layouts, overlays, dropdowns and search indicators */
+.light-mode .bg-\[\#0a0a0c\],
+.light-mode .bg-\[\#0a0a0c\]\/80,
+.light-mode .bg-\[\#0a0a0c\]\/90,
+.light-mode .bg-\[\#0a0a0c\]\/50,
+.light-mode .bg-\[\#090e0c\]\/98,
+.light-mode .bg-\[\#090e0c\]\/95,
+.light-mode .bg-\[\#090e0c\]\/90,
+.light-mode .bg-\[\#090e0c\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Overrides for search input wrapper bar & popovers */
+.light-mode .bg-\[\#0f110f\]\/90,
+.light-mode .bg-\[\#0c0d0c\] {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Overrides for all tailwind zinc card components, including detailed responsive opacity variants */
+.light-mode .bg-zinc-900,
+.light-mode .bg-zinc-900\/95,
+.light-mode .bg-zinc-900\/90,
+.light-mode .bg-zinc-900\/85,
+.light-mode .bg-zinc-900\/80,
+.light-mode .bg-zinc-900\/60,
+.light-mode .bg-zinc-900\/50,
+.light-mode .bg-zinc-900\/45,
+.light-mode .bg-zinc-900\/40,
+.light-mode .bg-zinc-900\/30,
+.light-mode .bg-zinc-900\/20,
+.light-mode .bg-zinc-900\/10,
+.light-mode .bg-zinc-800,
+.light-mode .bg-zinc-800\/90,
+.light-mode .bg-zinc-800\/60,
+.light-mode .bg-zinc-800\/50,
+.light-mode .bg-zinc-850,
+.light-mode .bg-zinc-950,
+.light-mode .bg-zinc-950\/85,
+.light-mode .bg-neutral-900\/10 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Overrides for terminal dark sections & black glass transparency layers */
+.light-mode .bg-black\/60,
+.light-mode .bg-black\/40,
+.light-mode .bg-black\/35,
+.light-mode .bg-black\/25,
+.light-mode .bg-black\/20 {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Map dark borderline classes to clean accessible slate-grays */
+.light-mode .border-zinc-900,
+.light-mode .border-zinc-800,
+.light-mode .border-zinc-800\/80,
+.light-mode .border-zinc-800\/40,
+.light-mode .border-zinc-800\/30,
+.light-mode .border-zinc-700,
+.light-mode .border-white\/30,
+.light-mode .border-white\/20,
+.light-mode .border-white\/15,
+.light-mode .border-white\/10,
+.light-mode .border-white\/5,
+.light-mode [class*="border-white/"] {
+  border-color: #cbd5e1 !important;
+}
+
+/* Improve contrast by matching dark text colors to accessible grays/slates */
+.light-mode .text-zinc-500 { color: #64748b !important; }
+.light-mode .text-zinc-400 { color: #475569 !important; }
+.light-mode .text-zinc-305 { color: #334155 !important; }
+.light-mode .text-zinc-300 { color: #334155 !important; }
+.light-mode .text-zinc-200 { color: #1e293b !important; }
+
+/* Ensure WCAG green readability across search matching stats & badges */
+.light-mode .text-\[\#00FF80\] {
+  color: #15803d !important; /* accessible forest green */
+}
+.light-mode .text-\[\#3cbd82\] {
+  color: #166534 !important; /* forest green-800 */
+}
+.light-mode .bg-\[\#00FF80\]\/5 {
+  background-color: rgba(21, 128, 61, 0.05) !important;
+}
+.light-mode .bg-\[\#00FF80\]\/10 {
+  background-color: rgba(21, 128, 61, 0.08) !important;
+}
+.light-mode .bg-\[\#3cbd82\]\/10 {
+  background-color: rgba(22, 101, 52, 0.08) !important;
+}
+.light-mode .bg-\[\#3cbd82\]\/5 {
+  background-color: rgba(22, 101, 52, 0.04) !important;
+}
+.light-mode .border-\[\#3cbd82\]\/20 {
+  border-color: rgba(21, 128, 61, 0.2) !important;
+}
+.light-mode .border-\[\#3cbd82\]\/30 {
+  border-color: rgba(21, 128, 61, 0.35) !important;
+}
+.light-mode .border-\[\#00FF80\]\/15 {
+  border-color: rgba(21, 128, 61, 0.15) !important;
+}
+.light-mode .border-\[\#00FF80\]\/10 {
+  border-color: rgba(21, 128, 61, 0.12) !important;
+}
+
+/* Rescue solid green footer borders from light grey wildcard borders */
+.light-mode footer [class*="border-white/"] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Rescue solid green footer from dark text colors: preserve excellent contrast */
+.light-mode footer .text-white,
+.light-mode footer h1.text-white,
+.light-mode footer h2.text-white,
+.light-mode footer h3.text-white,
+.light-mode footer h4.text-white,
+.light-mode footer span.text-white,
+.light-mode footer p.text-white,
+.light-mode footer a.text-white,
+.light-mode footer div.text-white,
+.light-mode footer .text-white\/95,
+.light-mode footer .text-white\/90,
+.light-mode footer .text-white\/85,
+.light-mode footer .text-white\/80,
+.light-mode footer .text-white\/70,
+.light-mode footer .text-white\/60,
+.light-mode footer .text-white\/40,
+.light-mode footer .text-white\/30,
+.light-mode footer .text-white\/20,
+.light-mode footer .text-white\/10 {
+  color: #ffffff !important;
+}
+.light-mode footer a:hover {
+  color: #000000 !important;
+}
+
+/* ModusBot chatbot custom light-theme overrides */
+.light-mode .from-\[\#0a0c0b\].to-\[\#040404\] { /* popup wrapper */
+  background-image: linear-gradient(to bottom right, #ffffff, #f4fbf7) !important;
+}
+.light-mode .from-\[\#0c0f0d\].to-\[\#060807\] { /* bot header */
+  background-image: linear-gradient(to right, #f2faf6, #e7f7ef) !important;
+  border-bottom-color: rgba(34, 197, 94, 0.1) !important;
+}
+.light-mode .bg-white\/\[0\.01\] { /* chatbot message box standard */
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.light-mode .from-\[\#060807\].to-transparent { /* message input block */
+  background-image: linear-gradient(to top, #ffffff 70%, rgba(255, 255, 255, 0)) !important;
+}
+.light-mode .bg-white\/\[0\.03\] { /* bot input */
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+.light-mode .bg-gradient-to-r.from-\[\#111915\].to-\[\#0c1411\] { /* user chat bubble */
+  background-image: linear-gradient(to right, #eafaf1, #dcfce7) !important;
+  border-color: rgba(59, 189, 130, 0.45) !important;
+}
+.light-mode .from-\[\#121915\].to-\[\#0a0f0d\] { /* Floating bot action button */
+  background-image: linear-gradient(to bottom right, #f0fdf4, #dcfce7) !important;
+  border-color: rgba(59, 189, 130, 0.5) !important;
+}
+.light-mode .bg-white\/\[0\.05\],
+.light-mode .bg-white\/\[0\.02\] {
+  background-color: #f1f5f9 !important;
+}
+.light-mode .text-white\/30 {
+  color: #64748b !important;
+}

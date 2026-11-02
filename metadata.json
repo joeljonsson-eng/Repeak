@@ -1,0 +1,6 @@
+{
+  "name": "Secondhand Fashion Pricing Index",
+  "description": "Repeak - Sök över alla secondhand-appar samtidigt. Få en oberoende AI-värdering och undvik dåliga köp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

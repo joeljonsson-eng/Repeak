@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "Trend": {
+      "title": "Trend",
+      "description": "Detailed brand and clothing item market demand trend data",
+      "type": "object",
+      "properties": {
+        "trend_name": { "type": "string", "description": "Brand and item name (e.g., 'Adidas Samba')" },
+        "category": { "type": "string", "description": "Clothing category: Footwear, Outerwear, Bottoms, etc." },
+        "image_url": { "type": "string", "description": "Public source image URL for preview" },
+        "trend_score": { "type": "integer", "description": "Aggregated trend index score 50-100" },
+        "growth_percent": { "type": "number", "description": "Weekly / monthly calculated growth metric" },
+        "source": { "type": "string", "description": "Authority platform link or metadata trace" },
+        "resale_price": { "type": "number", "description": "Benchmark resale pricing indicator in Swedish Kronor" },
+        "marketplace": { "type": "string", "description": "Core source marketplace of reference" },
+        "created_at": { "type": "string", "description": "ISO format timestamp of baseline creation" },
+        "updated_at": { "type": "string", "description": "ISO format timestamp representing latest update" },
+        "search_growth": { "type": "number", "description": "Google Trends and search index growth percent modifier" },
+        "engagement_growth": { "type": "number", "description": "Engagement growth signal tracked on Pinterest/socials" },
+        "marketplace_activity": { "type": "number", "description": "Transactional velocity indicator on specialized sites" },
+        "resale_activity": { "type": "number", "description": "Resell volume and bidding frequency tracking score" },
+        "social_mentions": { "type": "number", "description": "Social media mentions/hashtag density indices" },
+        "confidence_score": { "type": "number", "description": "Data consistency statistical score" },
+        "predicted_growth": { "type": "number", "description": "AI predicted MoM growth percentage" },
+        "future_trend_score": { "type": "number", "description": "AI predicted forward index score" },
+        "prediction_confidence": { "type": "number", "description": "AI prediction confidence probability score" }
+      },
+      "required": ["trend_name", "category", "trend_score", "growth_percent", "source", "marketplace"]
+    },
+    "TrendHistory": {
+      "title": "TrendHistory",
+      "description": "Daily historic scores tracking trends over time to support high-fidelity sparklines",
+      "type": "object",
+      "properties": {
+        "trend_id": { "type": "string", "description": "Id of the parent trend document" },
+        "trend_score": { "type": "integer", "description": "Recorded trend score on that spec date" },
+        "growth_percent": { "type": "number", "description": "Recorded weekly or monthly growth on spec date" },
+        "resale_price": { "type": "number", "description": "Recorded resale price value in SEK" },
+        "recorded_at": { "type": "string", "description": "ISO format timestamp of record trace" }
+      },
+      "required": ["trend_id", "trend_score", "growth_percent", "recorded_at"]
+    },
+    "FavoriteItem": {
+      "title": "FavoriteItem",
+      "description": "User saved secondhand listing item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Listing unique id" },
+        "title": { "type": "string", "description": "Title of the listing" },
+        "brand": { "type": "string", "description": "Brand name" },
+        "price": { "type": "number", "description": "Price in SEK" },
+        "originalPrice": { "type": "number", "description": "Original retail price in SEK" },
+        "marketplace": { "type": "string", "description": "Origin marketplace (Tradera, Vinted, Sellpy, Blocket, Plick)" },
+        "imageUrl": { "type": "string", "description": "Image URL of the item" },
+        "condition": { "type": "string", "description": "Condition of the item" },
+        "size": { "type": "string", "description": "Clothing or shoe size" },
+        "url": { "type": "string", "description": "Direct listing link" },
+        "savedAt": { "type": "string", "description": "ISO timestamp of when the item was favorited" },
+        "userId": { "type": "string", "description": "Owner user id" }
+      },
+      "required": ["id", "title", "brand", "price", "marketplace", "imageUrl", "savedAt", "userId"]
+    }
+  },
+  "firestore": {
+    "/trends/{trendId}": {
+      "schema": "Trend",
+      "description": "High level collections of live aftermarket trend indicators"
+    },
+    "/trends/{trendId}/history/{historyId}": {
+      "schema": "TrendHistory",
+      "description": "Deep historic points tracking individual trends over time"
+    },
+    "/users/{userId}/favorites/{favoriteId}": {
+      "schema": "FavoriteItem",
+      "description": "User saved favorites collection"
+    }
+  }
+}

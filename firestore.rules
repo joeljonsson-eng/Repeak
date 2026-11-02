@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default-deny global catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Secure Helper Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 64 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Boostrapped admin mapping from user email
+    function isAdmin() {
+      return isSignedIn() && 
+             request.auth.token.email == 'joel.jonsson@student.ksgyf.se' && 
+             request.auth.token.email_verified == true;
+    }
+
+    // Strict validation schema helper: Trend
+    function isValidTrend(data) {
+      return data.keys().hasAll(['trend_name', 'category', 'trend_score', 'growth_percent', 'source', 'marketplace']) &&
+             data.trend_name is string && data.trend_name.size() > 0 && data.trend_name.size() <= 128 &&
+             data.category is string && data.category.size() > 0 && data.category.size() <= 64 &&
+             data.trend_score is int && data.trend_score >= 0 && data.trend_score <= 100 &&
+             data.growth_percent is number &&
+             data.source is string && data.source.size() <= 2000 &&
+             data.marketplace is string && data.marketplace.size() <= 64;
+    }
+
+    // Strict validation schema helper: TrendHistory
+    function isValidTrendHistory(data) {
+      return data.keys().hasAll(['trend_id', 'trend_score', 'growth_percent', 'recorded_at']) &&
+             data.trend_id is string && data.trend_id.size() <= 64 &&
+             data.trend_score is int && data.trend_score >= 0 && data.trend_score <= 100 &&
+             data.growth_percent is number &&
+             data.recorded_at is string;
+    }
+
+    // High level Collection for fashion signals
+    match /trends/{trendId} {
+      // Clean reading without excessive O(n) reads
+      allow read: if true; 
+
+      allow create: if isAdmin() && isValidId(trendId) && isValidTrend(request.resource.data);
+
+      allow update: if isAdmin() && isValidId(trendId) && isValidTrend(request.resource.data);
+
+      allow delete: if isAdmin() && isValidId(trendId);
+
+      // Subcollection matching history trend nodes
+      match /history/{historyId} {
+        allow read: if true;
+
+        // Master Gate: only append if parent trend resource document actually exists
+        allow create: if isAdmin() && isValidId(historyId) && isValidTrendHistory(request.resource.data) &&
+                      exists(/databases/$(database)/documents/trends/$(trendId));
+
+        allow update: if false; // Immutable timeseries logs
+
+        allow delete: if isAdmin() && isValidId(historyId);
+      }
+    }
+
+    // Strict validation schema helper: User Favorite Item
+    function isValidFavorite(data, userId) {
+      return data.keys().hasAll(['id', 'title', 'brand', 'price', 'marketplace', 'imageUrl', 'savedAt', 'userId']) &&
+             data.userId == userId &&
+             data.id is string && data.id.size() <= 64 &&
+             data.title is string && data.title.size() <= 256 &&
+             data.brand is string && data.brand.size() <= 64 &&
+             data.price is number && data.price >= 0 &&
+             data.marketplace is string && data.marketplace.size() <= 64 &&
+             data.imageUrl is string && data.imageUrl.size() <= 2048 &&
+             data.savedAt is string;
+    }
+
+    // User favorites subcollection
+    match /users/{userId}/favorites/{favoriteId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow create: if isSignedIn() && request.auth.uid == userId && isValidId(favoriteId) && isValidFavorite(request.resource.data, userId);
+      allow update: if isSignedIn() && request.auth.uid == userId && isValidId(favoriteId) && isValidFavorite(request.resource.data, userId);
+      allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(favoriteId);
+    }
+  }
+}
